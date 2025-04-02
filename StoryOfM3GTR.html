@@ -678,12 +678,80 @@
                 grid-template-columns: 1fr;
             }
         }
+        /* Основные стили */
+        :root {
+            --primary: #0066b1; /* Синий BMW */
+            --secondary: #e62300; /* Красный акцент */
+            --dark: #1a1a1a;
+            --light: #f5f5f5;
+            --gray: #6d6d6d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--dark);
+            background-color: var(--light);
+            cursor: none; /* Скрываем стандартный курсор */
+            overflow-x: hidden; /* Восстановил, так как с новым подходом это не мешает */
+        }
+
+        /* Обновленные стили для курсора */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(0, 102, 179, 0.8);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.2s;
+            z-index: 1000;
+            mix-blend-mode: screen;
+        }
+
+        .cursor-light {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: rgba(0, 102, 179, 0.3);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: all 0.2s ease-out;
+            z-index: 999;
+            filter: blur(5px);
+        }
+
+        /* Стили для частиц следа */
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            pointer-events: none;
+            z-index: 998;
+            transform: translate(-50%, -50%);
+            opacity: 0.7;
+        }
+
+        /* Эффект при наведении на кликабельные элементы */
+        a, button, .btn, .game-card, .gallery-item, .spec-card, .timeline-content {
+            cursor: none;
+        }
     </style>
 </head>
 <body>
     <!-- Курсор и эффект света -->
     <div class="cursor"></div>
     <div class="cursor-light"></div>
+    <div id="cursor-trail-container"></div>
 
     <!-- Шапка -->
     <header>
@@ -878,16 +946,81 @@
         document.addEventListener('DOMContentLoaded', function() {
             const cursor = document.querySelector('.cursor');
             const cursorLight = document.querySelector('.cursor-light');
-
+            const trailContainer = document.getElementById('cursor-trail-container');
+            
+            // Настройки следа курсора
+            const trailLength = 15; // Количество частиц в следе
+            const trailParticles = []; // Массив для хранения частиц
+            
+            // Создаем частицы следа
+            for (let i = 0; i < trailLength; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'cursor-trail';
+                particle.style.opacity = 0;
+                trailContainer.appendChild(particle);
+                trailParticles.push({
+                    element: particle,
+                    x: 0,
+                    y: 0,
+                    delay: i * 0.03, // Задержка для каждой частицы
+                    lastTime: 0
+                });
+            }
+            
+            // Позиции курсора
+            let mouseX = 0;
+            let mouseY = 0;
+            let lastTime = 0;
+            
             // Основное движение курсора
             window.addEventListener('mousemove', (e) => {
-                const x = e.clientX;
-                const y = e.clientY;
-
-                cursor.style.transform = `translate(${x}px, ${y}px)`;
-                cursorLight.style.transform = `translate(${x}px, ${y}px)`;
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+                cursorLight.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
             });
-
+            
+            // Анимация следа курсора
+            function animateTrail(timestamp) {
+                if (!lastTime) lastTime = timestamp;
+                const deltaTime = timestamp - lastTime;
+                lastTime = timestamp;
+                
+                trailParticles.forEach((particle, index) => {
+                    // Плавное перемещение частиц к позиции курсора с задержкой
+                    setTimeout(() => {
+                        const dx = mouseX - particle.x;
+                        const dy = mouseY - particle.y;
+                        
+                        // Плавное движение частиц
+                        particle.x += dx * 0.1;
+                        particle.y += dy * 0.1;
+                        
+                        // Обновление позиции и прозрачности
+                        particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
+                        particle.element.style.opacity = 0.7 - (index / trailLength) * 0.6;
+                        
+                        // Размер частицы уменьшается по мере удаления от курсора
+                        const size = 6 - (index / trailLength) * 4;
+                        particle.element.style.width = `${size}px`;
+                        particle.element.style.height = `${size}px`;
+                        
+                        // Цвет частицы может меняться
+                        if (cursor.style.backgroundColor === 'var(--secondary)') {
+                            particle.element.style.backgroundColor = 'var(--secondary)';
+                        } else {
+                            particle.element.style.backgroundColor = 'var(--primary)';
+                        }
+                    }, index * 10);
+                });
+                
+                requestAnimationFrame(animateTrail);
+            }
+            
+            // Запускаем анимацию следа
+            requestAnimationFrame(animateTrail);
+            
             // Эффекты при наведении на интерактивные элементы
             const interactiveElements = document.querySelectorAll(
                 'a, button, .btn, .game-card, .gallery-item, .spec-card, .timeline-content'
@@ -913,6 +1046,7 @@
                 });
             });
 
+            // Остальной JavaScript код остается без изменений
             // Плавная прокрутка для меню
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
