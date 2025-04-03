@@ -727,6 +727,38 @@
             z-index: 999;
             filter: blur(5px);
         }
+        .sketchfab-embed-wrapper {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            margin: 30px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        }
+
+        .sketchfab-embed-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .sketchfab-embed-wrapper p {
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            margin: 0;
+        }
+
+        .sketchfab-embed-wrapper a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .sketchfab-embed-wrapper a:hover {
+            color: var(--secondary);
+        }
 
         /* Стили для частиц следа */
         .cursor-trail {
@@ -929,6 +961,22 @@
             </div>
         </div>
     </section>
+    <!-- Добавленная 3D модель -->
+    <div class="sketchfab-embed-wrapper">
+        <iframe title="BMW M3 GTR E46 NFS Mostwanted" frameborder="0" allowfullscreen mozallowfullscreen="true" 
+        webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" 
+        xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share 
+        src="https://sketchfab.com/models/7f08ad131a694fc0b8c8d74856724773/embed">
+        </iframe>
+        <p style="font-size: 13px; font-weight: normal; margin: 5px; color: #4A4A44;">
+            <a href="https://sketchfab.com/3d-models/bmw-m3-gtr-e46-nfs-mostwanted-7f08ad131a694fc0b8c8d74856724773?utm_medium=embed&utm_campaign=share-popup&utm_content=7f08ad131a694fc0b8c8d74856724773" 
+            target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">BMW M3 GTR E46 NFS Mostwanted</a>
+            by <a href="https://sketchfab.com/Alex.Ka.?utm_medium=embed&utm_campaign=share-popup&utm_content=7f08ad131a694fc0b8c8d74856724773" 
+            target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">ᗩᒪE᙭. Kᗩ.🚗</a>
+            on <a href="https://sketchfab.com?utm_medium=embed&utm_campaign=share-popup&utm_content=7f08ad131a694fc0b8c8d74856724773" 
+            target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
+        </p>
+    </div>
 
     <!-- Подвал -->
     <footer>
