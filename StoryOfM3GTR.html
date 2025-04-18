@@ -25,26 +25,26 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--dark);
             background-color: var(--light);
-            /* Убрал overflow-x: hidden, так как это мешало курсору */
-            cursor: none; /* Скрываем стандартный курсор */
+            overflow-x: hidden;
         }
 
         /* Обновленные стили для курсора */
-        .cursor {
-            position: fixed; /* Изменил на fixed для работы по всей странице */
+        .custom-cursor {
+            position: fixed;
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background-color: rgba(0, 102, 179, 0.8); /* Более насыщенный синий */
+            background-color: rgba(0, 102, 179, 0.8);
             pointer-events: none;
             transform: translate(-50%, -50%);
             transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.2s;
             z-index: 1000;
-            mix-blend-mode: screen; /* Для эффекта свечения */
+            mix-blend-mode: screen;
+            display: none;
         }
 
         .cursor-light {
-            position: fixed; /* Изменил на fixed для работы по всей странице */
+            position: fixed;
             width: 60px;
             height: 60px;
             border-radius: 50%;
@@ -53,7 +53,37 @@
             transform: translate(-50%, -50%);
             transition: all 0.2s ease-out;
             z-index: 999;
-            filter: blur(5px); /* Добавляем размытие для эффекта свечения */
+            filter: blur(5px);
+            display: none;
+        }
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(0, 102, 179, 0.8);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.2s;
+            z-index: 1000;
+            mix-blend-mode: screen;
+            display: none; /* Сначала скрыт, показывается через JS */
+        }
+        
+
+        /* Стили для убегающего объекта */
+        .escaping-car {
+            position: fixed;
+            width: 100px;
+            height: 50px;
+            background-image: url('https://news.store.rambler.ru/img/709fbdb11617ba8f9cb08e19db6f7a30?img-format=auto&img-1-resize=height:400,fit:max&img-2-filter=sharpen');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            z-index: 900;
+            transition: transform 0.5s ease-out;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
         }
 
         /* Эффект при наведении на кликабельные элементы */
@@ -678,55 +708,7 @@
                 grid-template-columns: 1fr;
             }
         }
-        /* Основные стили */
-        :root {
-            --primary: #0066b1; /* Синий BMW */
-            --secondary: #e62300; /* Красный акцент */
-            --dark: #1a1a1a;
-            --light: #f5f5f5;
-            --gray: #6d6d6d;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--dark);
-            background-color: var(--light);
-            cursor: none; /* Скрываем стандартный курсор */
-            overflow-x: hidden; /* Восстановил, так как с новым подходом это не мешает */
-        }
-
-        /* Обновленные стили для курсора */
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: rgba(0, 102, 179, 0.8);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease-out, width 0.2s, height 0.2s, background-color 0.2s;
-            z-index: 1000;
-            mix-blend-mode: screen;
-        }
-
-        .cursor-light {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background-color: rgba(0, 102, 179, 0.3);
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            transition: all 0.2s ease-out;
-            z-index: 999;
-            filter: blur(5px);
-        }
+       
         .sketchfab-embed-wrapper {
             position: relative;
             width: 100%;
@@ -777,13 +759,280 @@
         a, button, .btn, .game-card, .gallery-item, .spec-card, .timeline-content {
             cursor: none;
         }
+    .quest-section {
+    background-color: #f0f0f0;
+    background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                      url('https://bmwland.ru/wp-content/uploads/2024/12/bmwland_ru-bmw-M3-GTR-NFS-01.jpg');
+    background-size: cover;
+    background-position: center;
+    border-top: 3px solid var(--secondary);
+    border-bottom: 3px solid var(--primary);
+}
+
+.quest-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.quest-content {
+    display: flex;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.quest-description {
+    flex: 2;
+}
+
+.quest-tip {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.quest-tip h3 {
+    color: var(--primary);
+    margin-bottom: 10px;
+}
+
+.quest-tip-image {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.quest-stats {
+    display: flex;
+    gap: 30px;
+    margin: 25px 0;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-label {
+    font-weight: 600;
+    color: var(--gray);
+    font-size: 14px;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--dark);
+}
+
+#quest-status {
+    color: var(--secondary);
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 2px solid var(--secondary);
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.achievement.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.achievement-icon {
+    font-size: 50px;
+}
+
+.achievement-text h3 {
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .quest-content {
+        flex-direction: column;
+    }
+}
+
+/* Модальное окно */
+.modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 10% auto;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s;
+        }
+
+
+
+        @keyframes modalFadeIn {
+            from {opacity: 0; transform: translateY(-50px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-btn {
+            color: var(--gray);
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: var(--dark);
+        }
+
+        /* Формы */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .form-actions button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #0066b1;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000;
+        }
+        
+        .login-btn:hover {
+            background-color: #005599;
+        }
+
+        .register-btn {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .register-btn:hover {
+            background-color: #c11b00;
+        }
+
+        /* Информация о пользователе */
+        .user-info {
+            display: none;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .logout-btn {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        /* Контент только для админов */
+        .admin-only {
+            display: none;
+        }
+        .nav-btn {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-btn:hover {
+            background-color: var(--secondary);
+        }
     </style>
 </head>
 <body>
     <!-- Курсор и эффект света -->
-    <div class="cursor"></div>
-    <div class="cursor-light"></div>
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="cursor-light" id="cursorLight"></div>
     <div id="cursor-trail-container"></div>
+    <div class="escaping-car" id="escapingCar"></div>
+    <!--<button class="login-btn" id="loginBtn">Войти</button>-->
+    <button class="nav-btn" id="secondPageBtn">Перейти на вторую страницу</button>
 
     <!-- Шапка -->
     <header>
@@ -794,9 +1043,69 @@
                 <li><a href="#specs">Характеристики</a></li>
                 <li><a href="#gallery">Галерея</a></li>
                 <li><a href="#games">В играх</a></li>
+                <li id="loginBtn"><a href="#">Войти</a></li>
+                <li><a href="BMWh.html">Подробнее</a></li>
+                <!--<li class="user-info" id="userInfo">
+                    <div class="user-avatar" id="userAvatar"></div>
+                    <span class="user-name" id="userName"></span>
+                    <button class="logout-btn" id="logoutBtn">Выйти</button>
+                </li>
+            -->
             </ul>
         </nav>
     </header>
+
+    <!-- Модальное окно входа -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            
+            <span class="close-btn">&times;</span>
+            <h2>Вход в систему</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Имя пользователя</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="login-btn">Войти</button>
+                    <button type="button" class="register-btn" id="registerBtn">Регистрация</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Имя пользователя</label>
+                    <input type="text" id="regUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Пароль</label>
+                    <input type="password" id="regPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="regRole">Роль</label>
+                    <select id="regRole" class="form-group input" style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px;">
+                        <option value="user">Пользователь</option>
+                        <option value="admin">Администратор</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="register-btn">Зарегистрироваться</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 
     <!-- Герой секция -->
     <section class="hero">
@@ -910,7 +1219,7 @@
             </div>
         </div>
     </section>
-
+    <div class="escaping-car" id="escapingCar"></div>
     <!-- В играх -->
     <section class="section" id="games">
         <h2 class="section-title">M3 GTR в видеоиграх</h2>
@@ -961,8 +1270,8 @@
             </div>
         </div>
     </section>
-    <!-- Добавленная 3D модель -->
-    <div class="sketchfab-embed-wrapper">
+    <!-- Добавленная 3D модель (только для админов) -->
+    <div class="sketchfab-embed-wrapper admin-only" id="model3d">
         <iframe title="BMW M3 GTR E46 NFS Mostwanted" frameborder="0" allowfullscreen mozallowfullscreen="true" 
         webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" 
         xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share 
@@ -977,6 +1286,44 @@
             target="_blank" rel="nofollow" style="font-weight: bold; color: #1CAAD9;">Sketchfab</a>
         </p>
     </div>
+    <!-- Квест (только для админов) -->
+    <section class="section quest-section admin-only" id="quest">
+        <div class="quest-container">
+            <h2 class="section-title">Квест: Погоня за M3 GTR</h2>
+            
+            <div class="quest-content">
+                <div class="quest-description">
+                    <p>Ваша задача - "поймать" убегающий BMW M3 GTR, управляя курсором как полицейской машиной.</p>
+                    <p>Когда вам удастся подобраться достаточно близко к автомобилю (меньше 50px), вы завершите квест и получите достижение!</p>
+                    
+                    <div class="quest-stats">
+                        <div class="stat">
+                            <span class="stat-label">Минимальное расстояние:</span>
+                            <span class="stat-value" id="min-distance">-</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Статус:</span>
+                            <span class="stat-value" id="quest-status">В процессе</span>
+                        </div>
+                    </div>
+                    
+                    <div class="achievement hidden" id="achievement">
+                        <div class="achievement-icon">🏆</div>
+                        <div class="achievement-text">
+                            <h3>Достижение получено!</h3>
+                            <p>Вы поймали легендарный BMW M3 GTR, как настоящий герой Need for Speed!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="quest-tip">
+                    <h3>Совет:</h3>
+                    <p>Попробуйте загонять автомобиль в угол экрана - ему некуда будет бежать!</p>
+                    <img src="https://bmwland.ru/wp-content/uploads/2024/12/bmwland_ru-bmw-M3-GTR-NFS-01.jpg" alt="Стратегия поимки" class="quest-tip-image">
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Подвал -->
     <footer>
@@ -992,132 +1339,316 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const cursor = document.querySelector('.cursor');
-            const cursorLight = document.querySelector('.cursor-light');
-            const trailContainer = document.getElementById('cursor-trail-container');
+            // Инициализация кастомного курсора
+            const customCursor = document.getElementById('customCursor');
+            const cursorLight = document.getElementById('cursorLight');
             
-            // Настройки следа курсора
-            const trailLength = 15; // Количество частиц в следе
-            const trailParticles = []; // Массив для хранения частиц
-            
-            // Создаем частицы следа
-            for (let i = 0; i < trailLength; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'cursor-trail';
-                particle.style.opacity = 0;
-                trailContainer.appendChild(particle);
-                trailParticles.push({
-                    element: particle,
-                    x: 0,
-                    y: 0,
-                    delay: i * 0.03, // Задержка для каждой частицы
-                    lastTime: 0
-                });
-            }
-            
-            // Позиции курсора
-            let mouseX = 0;
-            let mouseY = 0;
-            let lastTime = 0;
+            // Показываем кастомные курсоры
+            customCursor.style.display = 'block';
+            cursorLight.style.display = 'block';
             
             // Основное движение курсора
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
-                cursorLight.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+            document.addEventListener('mousemove', (e) => {
+                customCursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+                cursorLight.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
             });
+    
+            // Элементы управления пользователем
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const userInfo = document.getElementById('userInfo');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeBtns = document.querySelectorAll('.close-btn');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginForm = document.getElementById('loginForm');
+            const registerForm = document.getElementById('registerForm');
             
-            // Анимация следа курсора
-            function animateTrail(timestamp) {
-                if (!lastTime) lastTime = timestamp;
-                const deltaTime = timestamp - lastTime;
-                lastTime = timestamp;
-                
-                trailParticles.forEach((particle, index) => {
-                    // Плавное перемещение частиц к позиции курсора с задержкой
-                    setTimeout(() => {
-                        const dx = mouseX - particle.x;
-                        const dy = mouseY - particle.y;
-                        
-                        // Плавное движение частиц
-                        particle.x += dx * 0.1;
-                        particle.y += dy * 0.1;
-                        
-                        // Обновление позиции и прозрачности
-                        particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
-                        particle.element.style.opacity = 0.7 - (index / trailLength) * 0.6;
-                        
-                        // Размер частицы уменьшается по мере удаления от курсора
-                        const size = 6 - (index / trailLength) * 4;
-                        particle.element.style.width = `${size}px`;
-                        particle.element.style.height = `${size}px`;
-                        
-                        // Цвет частицы может меняться
-                        if (cursor.style.backgroundColor === 'var(--secondary)') {
-                            particle.element.style.backgroundColor = 'var(--secondary)';
-                        } else {
-                            particle.element.style.backgroundColor = 'var(--primary)';
-                        }
-                    }, index * 10);
-                });
-                
-                requestAnimationFrame(animateTrail);
+            // Проверяем, есть ли сохраненный пользователь
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                updateUserUI(currentUser);
             }
             
-            // Запускаем анимацию следа
-            requestAnimationFrame(animateTrail);
+            // Обработчики модальных окон
+            loginBtn.addEventListener('click', () => loginModal.style.display = 'block');
+            registerBtn.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'block';
+            });
             
-            // Эффекты при наведении на интерактивные элементы
-            const interactiveElements = document.querySelectorAll(
-                'a, button, .btn, .game-card, .gallery-item, .spec-card, .timeline-content'
-            );
-
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    cursor.style.width = '30px';
-                    cursor.style.height = '30px';
-                    cursor.style.backgroundColor = 'var(--secondary)';
-                    cursorLight.style.width = '80px';
-                    cursorLight.style.height = '80px';
-                    cursorLight.style.backgroundColor = 'rgba(230, 35, 0, 0.4)';
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    cursor.style.width = '20px';
-                    cursor.style.height = '20px';
-                    cursor.style.backgroundColor = 'rgba(0, 102, 179, 0.8)';
-                    cursorLight.style.width = '60px';
-                    cursorLight.style.height = '60px';
-                    cursorLight.style.backgroundColor = 'rgba(0, 102, 179, 0.3)';
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
                 });
             });
-
-            // Остальной JavaScript код остается без изменений
+            
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+            
+            // Обработчик формы входа
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // В реальном приложении здесь был бы запрос к серверу
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (user) {
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    updateUserUI(user);
+                    loginModal.style.display = 'none';
+                    
+                    // ЗАПУСК ВАШЕГО ПРИЛОЖЕНИЯ ПОСЛЕ УСПЕШНОГО ВХОДА
+                    launchYourApplication(user.role);
+                } else {
+                    alert('Неверное имя пользователя или пароль');
+                }
+            });
+            
+            // Обработчик формы регистрации
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('regUsername').value;
+                const password = document.getElementById('regPassword').value;
+                const role = document.getElementById('regRole').value;
+                
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                
+                if (users.some(u => u.username === username)) {
+                    alert('Пользователь с таким именем уже существует');
+                    return;
+                }
+                
+                const newUser = { username, password, role };
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('currentUser', JSON.stringify(newUser));
+                updateUserUI(newUser);
+                registerModal.style.display = 'none';
+                alert('Регистрация прошла успешно!');
+            });
+            
+            // Выход из системы
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('currentUser');
+                loginBtn.style.display = 'block';
+                userInfo.style.display = 'none';
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+                alert('Вы вышли из системы');
+            });
+            
+            // Обновление интерфейса пользователя
+            function updateUserUI(user) {
+                loginBtn.style.display = 'none';
+                userInfo.style.display = 'flex';
+                userAvatar.textContent = user.username.charAt(0).toUpperCase();
+                userName.textContent = user.username;
+                
+                
+                if (user.role === 'admin') {
+                    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'block');
+                } else {
+                    document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'none');
+                }
+            }
+            
+            // Функция для запуска вашего приложения
+            function launchYourApplication(userRole) {
+                
+                const link = document.getElementById('directDownload');
+                link.click();
+    
+                // Показываем инструкцию
+                 setTimeout(() => {
+                alert('Если приложение не запустилось автоматически, найдите и запустите скачанный файл Auth.exe');
+                 }, 1000);
+            }
+    
+            // Инициализация курсора и квеста (только для админов)
+            if (currentUser && currentUser.role === 'admin') {
+                initCursorAndQuest();
+            }
+            
+            function initCursorAndQuest() {
+                const cursor = document.querySelector('.custom-cursor');
+                const cursorLight = document.querySelector('.cursor-light');
+                const trailContainer = document.getElementById('cursor-trail-container');
+                const escapingCar = document.getElementById('escapingCar');
+    
+                // Настройки следа курсора
+                const trailLength = 15;
+                const trailParticles = [];
+    
+                // Создаем частицы следа
+                for (let i = 0; i < trailLength; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'cursor-trail';
+                    particle.style.opacity = 0;
+                    trailContainer.appendChild(particle);
+                    trailParticles.push({
+                        element: particle,
+                        x: 0,
+                        y: 0,
+                        delay: i * 0.03,
+                        lastTime: 0
+                    });
+                }
+    
+                // Позиции курсора
+                let mouseX = 0;
+                let mouseY = 0;
+                let lastTime = 0;
+    
+                // Начальная позиция убегающего автомобиля
+                let carX = window.innerWidth / 2;
+                let carY = window.innerHeight / 2;
+                let minDistance = Infinity;
+                let questCompleted = false;
+                const minDistanceElement = document.getElementById('min-distance');
+                const questStatusElement = document.getElementById('quest-status');
+                const achievementElement = document.getElementById('achievement');
+    
+                // Основное движение курсора и логика убегающего автомобиля
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = e.clientX;
+                    mouseY = e.clientY;
+    
+                    cursor.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+                    cursorLight.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    
+                    if (escapingCar && !questCompleted) {
+                        const dx = carX - mouseX;
+                        const dy = carY - mouseY;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+    
+                        if (distance < 200) {
+                            const angle = Math.atan2(dy, dx);
+                            const escapeDistance = 200 - distance;
+    
+                            carX += Math.cos(angle) * escapeDistance * 0.1;
+                            carY += Math.sin(angle) * escapeDistance * 0.1;
+    
+                            carX = Math.max(50, Math.min(window.innerWidth - 50, carX));
+                            carY = Math.max(50, Math.min(window.innerHeight - 50, carY));
+    
+                            const rotation = angle * (180 / Math.PI) + 90;
+                            escapingCar.style.transform = `translate(${carX}px, ${carY}px) rotate(${rotation}deg)`;
+                        }
+    
+                        // Логика квеста
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            minDistanceElement.textContent = `${Math.round(minDistance)}px`;
+                        }
+    
+                        if (distance < 50) {
+                            questCompleted = true;
+                            questStatusElement.textContent = "Завершено!";
+                            questStatusElement.style.color = "green";
+                            achievementElement.classList.remove('hidden');
+                            achievementElement.classList.add('visible');
+    
+                            // Останавливаем убегание автомобиля после поимки
+                            escapingCar.style.transition = 'transform 0.5s ease-out';
+                            escapingCar.style.transform = `translate(${mouseX}px, ${mouseY}px) rotate(0deg)`;
+                        }
+                    }
+                });
+    
+                // Анимация следа курсора
+                function animateTrail(timestamp) {
+                    if (!lastTime) lastTime = timestamp;
+                    const deltaTime = timestamp - lastTime;
+                    lastTime = timestamp;
+    
+                    trailParticles.forEach((particle, index) => {
+                        setTimeout(() => {
+                            const dx = mouseX - particle.x;
+                            const dy = mouseY - particle.y;
+    
+                            particle.x += dx * 0.1;
+                            particle.y += dy * 0.1;
+    
+                            particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
+                            particle.element.style.opacity = 0.7 - (index / trailLength) * 0.6;
+    
+                            const size = 6 - (index / trailLength) * 4;
+                            particle.element.style.width = `${size}px`;
+                            particle.element.style.height = `${size}px`;
+    
+                            if (cursor.style.backgroundColor === 'var(--secondary)') {
+                                particle.element.style.backgroundColor = 'var(--secondary)';
+                            } else {
+                                particle.element.style.backgroundColor = 'var(--primary)';
+                            }
+                        }, index * 10);
+                    });
+    
+                    requestAnimationFrame(animateTrail);
+                }
+    
+                // Запускаем анимацию следа
+                requestAnimationFrame(animateTrail);
+    
+                // Эффекты при наведении на интерактивные элементы
+                const interactiveElements = document.querySelectorAll(
+                    'a, button, .btn, .game-card, .gallery-item, .spec-card, .timeline-content'
+                );
+    
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.style.width = '30px';
+                        cursor.style.height = '30px';
+                        cursor.style.backgroundColor = 'var(--secondary)';
+                        cursorLight.style.width = '80px';
+                        cursorLight.style.height = '80px';
+                        cursorLight.style.backgroundColor = 'rgba(230, 35, 0, 0.4)';
+                    });
+    
+                    el.addEventListener('mouseleave', () => {
+                        cursor.style.width = '20px';
+                        cursor.style.height = '20px';
+                        cursor.style.backgroundColor = 'rgba(0, 102, 179, 0.8)';
+                        cursorLight.style.width = '60px';
+                        cursorLight.style.height = '60px';
+                        cursorLight.style.backgroundColor = 'rgba(0, 102, 179, 0.3)';
+                    });
+                });
+            }
+    
             // Плавная прокрутка для меню
             document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+                    if (this.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+    
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+    
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
-
+    
             // Анимация элементов при скролле
             const animateOnScroll = function() {
                 const elements = document.querySelectorAll('.timeline-item, .spec-card, .game-card');
-
+    
                 elements.forEach((item, index) => {
                     const itemTop = item.getBoundingClientRect().top;
                     const windowHeight = window.innerHeight;
-
+    
                     if (itemTop < windowHeight - 100) {
                         setTimeout(() => {
                             item.classList.add('visible');
@@ -1125,53 +1656,10 @@
                     }
                 });
             };
-
+    
             window.addEventListener('scroll', animateOnScroll);
             animateOnScroll(); // Запустить при загрузке
-
-            // Анимация кнопки двигателя
-            const engineBtn = document.getElementById('engineBtn');
-            const engineSound = document.getElementById('engineSound');
-            const exhaustEffect = document.getElementById('exhaustEffect');
-            let engineRunning = false;
-
-            if (engineBtn) {
-                engineBtn.addEventListener('click', function() {
-                    engineRunning = !engineRunning;
-
-                    if (engineRunning) {
-                        engineSound.currentTime = 0;
-                        engineSound.play();
-                        engineBtn.innerHTML = 'Остановить двигатель';
-
-                        // Анимация выхлопа
-                        exhaustEffect.style.opacity = '1';
-                        exhaustEffect.style.transition = 'opacity 0.3s';
-
-                        // Вибрация
-                        this.style.animation = 'vibrate 0.1s infinite';
-                    } else {
-                        engineSound.pause();
-                        engineBtn.innerHTML = 'Завести двигатель';
-                        exhaustEffect.style.opacity = '0';
-                        this.style.animation = 'none';
-                    }
-                });
-            }
-
-            // Добавляем стиль для вибрации
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes vibrate {
-                    0% { transform: translateY(0); }
-                    25% { transform: translateY(-2px); }
-                    50% { transform: translateY(0); }
-                    75% { transform: translateY(2px); }
-                    100% { transform: translateY(0); }
-                }
-            `;
-            document.head.appendChild(style);
-
+    
             // Параллакс для героя
             window.addEventListener('mousemove', function(e) {
                 const heroBg = document.querySelector('.hero-bg');
@@ -1181,7 +1669,13 @@
                     heroBg.style.transform = `scale(1.1) translate(${x * 20 - 10}px, ${y * 20 - 10}px)`;
                 }
             });
+            const secondPageBtn = document.getElementById('secondPageBtn');
+
+            secondPageBtn.addEventListener('click', function() {
+             window.location.href = 'BMWh.html';
+            });
         });
-    </script>
+        </script>
+    
 </body>
 </html>
